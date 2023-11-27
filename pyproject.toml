@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "youtube-summarizer"
+version = "0.1.0"
+description = ""
+authors = ["Spencer Zezulka <spencer_zezulka@aol.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.9.7 || >3.9.7,<4.0"
+langchain = "^0.0.335"
+streamlit = "^1.28.2"
+youtube-transcript-api = "^0.6.1"
+python-dotenv = "^1.0.0"
+openai = "^1.2.4"
+pytube = "^15.0.0"
+pytest = "^7.4.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
