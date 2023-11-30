@@ -13,8 +13,8 @@ so little time.
 In the past, you might've swept through comments-first, *hoping* for a gracious commenter with a summary to guide you. Hope no longer!&mdash;paste the URL, get a summary.
 
 [**for example...**](https://www.youtube.com/watch?v=OI_3bQ-EWSI)
-![Screenshot](videoscreenshot.png) 
-![Screenshot2](summaryscreenshot.png)
+![Screenshot](assets/videoscreenshot.png) 
+![Screenshot2](assets/summaryscreenshot.png)
 
 
 ## Features
@@ -74,6 +74,8 @@ This project uses
     ```bash
     poetry run streamlit run app/main.py
     ```
+
+7. Follow the instructions in the frontend to analyze your videos. Enjoy!
 
 
 ## Testing
