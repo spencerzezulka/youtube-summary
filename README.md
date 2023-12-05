@@ -21,12 +21,12 @@ In the past, you might've swept through comments-first, *hoping* for a gracious 
 
 **YoutubeSummarizer** offers a few bonus features:
 
-1. Text analytics dashboard to view your videos, *broken down* to their *finest* parts
+1. Text analytics dashboard to analyze your videos, *broken down* to their *finest* parts
 2. Compare and contrast up to 3 videos at a time
 3. Chat with your model of choice about your video(s)
 4. Translation
 5. Customizable summary prompts
-6. Script to process multishot transcript example &ndash; summary example pairings if you want your summaries to look a certain way
+6. Script to process transcript&ndash;with&ndash;summary pairings for multishot prompting to help customize summaries
 
 ## ⚙️ | Requirements
 #### This project uses
