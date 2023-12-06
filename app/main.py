@@ -1,4 +1,3 @@
-from email.policy import default
 import streamlit as st
 from langchain.document_loaders import YoutubeLoader
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
@@ -10,13 +9,13 @@ from utils.streamlit_utils import double_newlines
 
 
 def load_api_key() -> str: 
-    # A
-    try:
-        load_dotenv(find_dotenv())
+    load_dotenv(find_dotenv())
+    # Escape entering api key in UI if .env file provided with api key
+    if os.environ.get('OPEN_AI_KEY'):
         api_key = os.environ.get('OPEN_AI_KEY')
     
     # If no valid API key provided in .env, request through UI
-    except:
+    else:
         with st.sidebar:
             api_key = st.text_input(
                 "Enter OpenAI API Key", key="openai_api_key", type="password"
@@ -34,7 +33,8 @@ def main():
     st.title("YouTube Video Summary Bot :robot_face:")
 
     api_key = load_api_key()
-
+    if not api_key:
+        exit()
     
     # Input form for the YouTube link
 
@@ -66,9 +66,6 @@ def main():
         else:
             st.warning('Please provide an OpenAI API key.')
         
-
-
-    
     if not submit_button:
         exit()
 
@@ -92,7 +89,6 @@ def main():
             st.error(f"An error occurred: {e}")
     else:
         st.error("Invalid YouTube video link. Please make sure the link is correct.")
-
 
 if __name__ == "__main__":
     main()
