@@ -1,3 +1,4 @@
+from pyexpat import model
 import streamlit as st
 from langchain.document_loaders import YoutubeLoader
 from langchain.chains.combine_documents.stuff import StuffDocumentsChain
@@ -34,6 +35,8 @@ def main():
 
     api_key = load_api_key()
     if not api_key:
+        with st.sidebar(key='no_api_key'):
+            st.write('You must please provide a valid OpenAI API key in the sidebar to access this app.')
         exit()
     
     # Input form for the YouTube link
@@ -42,27 +45,31 @@ def main():
         with st.sidebar:
             # Model selection
             model_names = ('gpt-3.5-turbo', 'gpt-3.5-turbo-16k', 
-                'gpt-4', 'gpt-4-32k', 'gpt-4-1106-preview')
+                'gpt-4', 'gpt-4-32k', 'gpt-4-1106-preview') # defaults to prereleased gpt-4
             model_information = '''
             Larger models (size is denoted by the suffix, e.g. '-16k', '-32k') can read in more tokens at once,
             and thus can read in larger videos as a whole, but also tend to cost more. All else equal, using gpt-4 costs more 
             than using gpt-3.5. gpt-4-1106, at the time of writing, has a 128k token context window
             and is faster.
             '''
-            user_selected_model = st.selectbox('Select model', options=model_names, help=model_information)
+            best_default_model_index = len(model_names)-1
+            user_selected_model = st.selectbox('Select model', options=model_names, help=model_information, index=best_default_model_index)
+            st.markdown('For more information on models and their costs, check the [OpenAI API Models page](https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo)')
 
             # Temperature selection
-            temperature = st.slider(label='Set temperature', min_value=0.0, max_value=1.0, step=0.01)
+            temperature_information = '''
+            Temperature is a parameter passed into the LLM of choice. Higher temperature gives more random responses. A temperature of 0
+            is deterministic.
+            '''
+            temperature = st.slider(label='Set temperature', min_value=0.0, max_value=1.0, step=0.01, help=temperature_information)
             
             # Toggle confirm submission after seeing cost (to be added later)
             # confirm_submission = st.checkbox('Toggle confirm submission?')
 
-    with st.form(key='my_form'):
+    with st.form(key='valid_api_key'):
         video_url = st.text_input(label='Enter the YouTube video link')
         if api_key:
             submit_button = st.form_submit_button(label='Summarize')
-        # elif api_key and confirm_submission:
-        #     confirm_button = 
         else:
             st.warning('Please provide an OpenAI API key.')
         
@@ -85,7 +92,6 @@ def main():
             st.markdown(markdown_summary)
 
         except Exception as e:
-            st.write('Metadata: '+  str(youtube_metadata))
             st.error(f"An error occurred: {e}")
     else:
         st.error("Invalid YouTube video link. Please make sure the link is correct.")
