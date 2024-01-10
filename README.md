@@ -1,4 +1,6 @@
-# YouTube Summarizer | 🎬🎥🔴 ---> 📝
+# [**YouTube Summarizer**](https://youtubesummary.streamlit.app/) | 🎬🎥🔴 ---> 📝
+
+^streamlit community cloud edition
 
 ## ❓ | Motivation 
 
